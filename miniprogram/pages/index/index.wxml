@@ -1,6 +1,7 @@
 <!--index.wxml-->
-<scroll-view id="index-container">
-  <view >
+<scroll-view  id="index-container">
+  <view class="horizon-margin label-lv1">入住率</view>
+  <!-- <view class="horizon-margin"> 
     <picker style="float:left;width:50%;color:white;font-size:0.8em" mode="date" value="{{startDate}}" bindchange="onStartDateChange">
       <view class="picker">
         当前选择: {{startDate}}
@@ -11,7 +12,25 @@
         当前选择: {{endDate}}
       </view>
     </picker>
-    <canvas canvas-id="bar-canvas" style="width:100%; height:300px;"></canvas>
-    
+  </view> -->
+
+  <view  id="bar-container">
+    <scroll-view  scroll-x>
+
+      <canvas canvas-id="bar-canvas" style="width:2000px; height:150px;"></canvas>
+
+    </scroll-view>
   </view>
-</scroll-view> 
+
+  <view >
+    <view class="horizon-margin label-lv1">词频</view>
+
+
+  </view>
+  
+</scroll-view>
+
+
+
+<view id="float-panel">
+</view>

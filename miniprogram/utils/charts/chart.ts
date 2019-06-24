@@ -1,24 +1,28 @@
-export class Charts{
+export class Charts {
   context: wx.CanvasContext;
 
-  constructor(context:wx.CanvasContext){
+  constructor(context: wx.CanvasContext) {
     this.context = context;
   }
 
-  initCircleBarView(){
-    let yArr = [ 10, 20, 30, 40, 50, 60, 70];
+  initCircleBarView() {
+    let yArr = [10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70];
     let x = 100;
 
-    yArr.forEach(value => {
-      this.fillCircle({ x: x, y: value }, { radius: 3, color: '#0BD2BC'});
+    [1,20, 40, 60].forEach(num =>{
+      yArr.forEach(value => {
+        this.fillCircle({ x: x + num, y: value }, { radius: 2, color: '#0BD2BC' });
+        this.fillCircle({ x: (x + 5) + num, y: value }, { radius: 2, color: '#0BD2BC' });
+      })
     })
+    
   }
 
 
-  fillRect(pos: object, opt: object){
+  fillRect(pos: object, opt: object) {
     let _fillStyle = this.context.fillStyle;
-    this.context.setFillStyle(opt.color);
-    this.context.fillRect(pos.x , pos.y, opt.height, opt.width);
+    this.context.setFillStyle(opt.color, 5);
+    this.context.fillRect(pos.x, pos.y, opt.height, opt.width);
     this.context.draw(true);
 
     this.context.setFillStyle(_fillStyle);
@@ -28,36 +32,22 @@ export class Charts{
 
   fillCircle(pos: object, opt: object) {
     let _fillStyle = this.context.fillStyle;
-    this.context.setFillStyle(this._lightenDarkenColor(opt.color, -0));
-    this.context.arc(pos.x,pos.y,opt.radius,2*Math.PI);
+    this.context.setFillStyle(opt.color);
+    this.context.arc(pos.x, pos.y, opt.radius, 2 * Math.PI);
     this.context.fill();
-    this.context.setFillStyle(this._lightenDarkenColor(opt.color,30));
+
+    this.context.setFillStyle(this._shadeColor1(opt.color, 20));
     this.context.arc(pos.x, pos.y, opt.radius - 2, 2 * Math.PI);
     this.context.fill();
+    
     this.context.draw(true);
-
     this.context.setFillStyle(_fillStyle);
 
   }
 
 
-  _lightenDarkenColor(col, amt) {
-    let usePound = false;
-    if (col[0] == "#") {
-      col = col.slice(1);
-      usePound = true;
-    }
-    let num = parseInt(col,16);
-    let r = (num >> 16) + amt;
-    if (r > 255) r = 255;
-    else if (r < 0) r = 0;
-    let b = ((num >> 8) & 0x00FF) + amt;
-    if (b > 255) b = 255;
-    else if (b < 0) b = 0;
-    let g = (num ) + amt;
-    if (g > 255) g = 255;
-    else if (g < 0) g = 0;
-    return (usePound?"#":"") + (g | (b << 8) | (r << 16)).toString(16);
-
-    }
+  _shadeColor1(color, percent) {  // deprecated. See below.
+    var num = parseInt(color.slice(1), 16), amt = Math.round(2.55 * percent), R = (num >> 16) + amt, G = (num >> 8 & 0x00FF) + amt, B = (num & 0x0000FF) + amt;
+    return "#" + (0x1000000 + (R < 255 ? R < 1 ? 0 : R : 255) * 0x10000 + (G < 255 ? G < 1 ? 0 : G : 255) * 0x100 + (B < 255 ? B < 1 ? 0 : B : 255)).toString(16).slice(1);
+  }
 }

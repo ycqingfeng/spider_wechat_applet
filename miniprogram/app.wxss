@@ -13,3 +13,14 @@
 page{
   background: linear-gradient(120deg, #756C8A, #3D3C53);
 }
+
+
+.horizon-margin{
+  margin: 0 10px;
+}
+
+.label-lv1{
+  color:aliceblue;
+  font-size: 0.9em;
+  line-height: 36px;
+}

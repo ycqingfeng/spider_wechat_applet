@@ -7,7 +7,6 @@ const app = getApp<IMyApp>()
 
 Page({
   data: {
-    motto: '点击 “编译” 以构建',
     startDate:'2019-06-20',
     endDate:'2019-06-20'
   },
@@ -19,11 +18,7 @@ Page({
   },
   onReady(){
     let context = wx.createCanvasContext('bar-canvas')
-    let width = wx.getSystemInfoSync().windowWidth
 
-    context.setFillStyle('rgba(0,0,0,0.2)')
-    context.fillRect(0, 0, width, 300)
-    context.draw()
     
     let chart = new Charts(context)
 

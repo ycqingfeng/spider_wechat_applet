@@ -3,3 +3,19 @@
   
   
 }
+
+#bar-container{
+  overflow: hidden;
+  background: rgba(0,0,0,0.1)
+}
+
+
+
+#float-panel{
+  position: absolute;
+  right: 40px;
+  bottom: 40px;
+  height: 100px;
+  width: 40px;
+  background: rgba(0,0,0,0.1)
+}
